@@ -20,6 +20,12 @@ public class GithubActivityCLI {
         try {
             HttpRequest request = HttpRequest.newBuilder().uri(new URI(GITHUB_API_URL)).header("Accept", "application/vnd.github+json").GET().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println(response);
+            } else {
+                System.out.println("Error: " + response.statusCode());
+            }
         } catch (URISyntaxException uriSyntaxException) {
             uriSyntaxException.printStackTrace();
         } catch (InterruptedException interruptedException) {
