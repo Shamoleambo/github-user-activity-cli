@@ -21,8 +21,10 @@ public class GithubActivityCLI {
             HttpRequest request = HttpRequest.newBuilder().uri(new URI(GITHUB_API_URL)).header("Accept", "application/vnd.github+json").GET().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() == 200) {
-                System.out.println(response);
+            if (response.statusCode() == 404) {
+                System.out.println("User not found. Please check the user name.");
+            } else if (response.statusCode() == 200) {
+                System.out.println(response.body());
             } else {
                 System.out.println("Error: " + response.statusCode());
             }
